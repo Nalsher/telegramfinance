@@ -102,11 +102,12 @@ async def handler(message:Message,state:FSMContext):
 
 @dp.message()
 async def echohandler(message:Message):
+    tet = await create_link(message.chat.id)
     await bot.send_message(chat_id=message.chat.id,
                            text=html.bold(f"🤖 Как отвечать на вопросы?"
                                           "Когда тебе приходит вопрос"
                                           ", в нём есть кнопка «Ответить анонимно».\n\n🤖 "
-                                          "Как получать вопросы?""Твоя ссылка для получения вопросов:"+create_link(message.chat.id)))
+                                          "Как получать вопросы?""Твоя ссылка для получения вопросов:"+tet))
 
 async def main() -> None:
     await create()
