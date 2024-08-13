@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data/postgres
+    volumes:
+      - .:/docker-entrypoint-initdb.d
+      - data:/var/lib/postgresql/data
+    expose:
+      - 5432:5432
+  tgbot:
+    working_dir: /finance
+    build: .
+    command: python main.py
+    develop:
+      watch:
+        - path: finance/test.txt
+          action: rebuild
+        - path: finance/
+          target: finance
+          action: sync
+    depends_on:
+      - db
+    restart: always
+volumes:
+  data:
