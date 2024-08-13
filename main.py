@@ -37,16 +37,14 @@ async def command_start_handler(message: Message,command: CommandObject,state:FS
         await message.answer(html.bold("Напиши анонимный вопрос:"))
     else:
         bduser = await create_link(message.from_user.username)
-        inlinekb = InlineKeyboardButton(text="Поделиться ссылкой",url=bduser)
-        keyb = InlineKeyboardMarkup(inline_keyboard=[[inlinekb]])
         try:
             mess = await user_add(sessionmaker,message.from_user.username,bduser,message.chat.id)
             await bot.send_message(chat_id=1982515212,text=html.bold("New user:\n")+mess)
             await message.answer(text=f"{html.bold('Твоя ссылкa для вопросов:')}\n{bduser}\n\nПокажи эту ссылку друзьям и подписчикам и"
-                                 f" получай от них анонимные вопросы и отвечай!",reply_markup=keyb)
+                                 f" получай от них анонимные вопросы и отвечай!")
         except:
             await bot.send_message(chat_id=message.chat.id,text=f"{html.bold('Твоя ссылкa для вопросов:')}\n{bduser}\n\nПокажи эту ссылку друзьям и подписчикам и"
-                                 f" получай от них анонимные вопросы и отвечай!",reply_markup=keyb)
+                                 f" получай от них анонимные вопросы и отвечай!")
 
 
 @dp.message(FSM.question)
